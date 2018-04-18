@@ -16,15 +16,15 @@ def fitness(rings):
 			if tilt_factor >= 1 or tilt_factor <= -1:
 				return 100000000000
 			else:
-				total += abs(1.0/sin(acos(tilt_factor)))
+				total += 1.0/sin(acos(tilt_factor))
 	return total
 
 def new_parent():
-	return [[0, 0]] + [[randint(0,90), randint(0,179)] for i in range(num_orbits - 1)]
+	return [[0, 0]] + [[randint(0,90), randint(0,359)] for i in range(num_orbits - 1)]
 
 def mutate(parent):
 	parent[randint(1,len(parent) - 1)][0] = randint(0, 90)
-	parent[randint(1,len(parent) - 1)][1] = randint(0, 179)
+	parent[randint(1,len(parent) - 1)][1] = randint(0, 359)
 	return parent
 
 def mate(parent1, parent2):
