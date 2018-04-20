@@ -15,14 +15,14 @@ num_orbits = int(raw_input())
 # The idea is to check every point on the Earth and see if it is covered by a ring in order
 # to find the maximum coverage area. But this would either be way too slow or the orbits would
 # just be oriented so that the swaths end up between the points we check. So instead, every time we call fitness,
-# we take a random sample of 200 points and check how many are covered. Yes, the result eventually does converge.
+# we take a random sample of 500 points and check how many are covered. Yes, the result eventually does converge.
 def fitness(rings):
 	total = 0
 
-	points = [[randint(0,180), randint(0,360)] for i in range(200)]
+	points = [[randint(0,180), randint(0,360)] for i in range(500)]
 	for point in points:
 		for ring in rings:
-			# acceptable range on angles based on 350 x 350 km satellite coverage area
+			# acceptable range on angles based on 330 x 330 km satellite coverage area
 			if abs(tilt_factors[point[0]][ring[0]][abs(point[1] - ring[1])]) <= 0.02746476134:
 				total += 1
 				break
@@ -79,7 +79,7 @@ while True:
 			child = mate(parents[0][1], parents[1][1])
 
 			# mutate one in 10 to prevent getting stuck in a local minimum
-			should_mutate = randint(0, 5)
+			should_mutate = randint(0, 10)
 			if should_mutate == 3:
 				child = mutate(child)
 			children += [[fitness(child), child]]
